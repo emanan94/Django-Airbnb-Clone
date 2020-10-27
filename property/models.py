@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
-
+from django.template.defaultfilters import slugify
 # Create your models here.
 
 class Property(models.Model):
@@ -13,8 +13,20 @@ class Property(models.Model):
     image=models.ImageField(upload_to='property/')
     category=models.ForeignKey('Category',related_name='property_category',on_delete=models.CASCADE)
     
+    slug=models.SlugField(blank=True, null=True)
     created_at=models.DateTimeField(auto_now=True)
     updated_at=models.DateTimeField(auto_now_add=True)
+
+
+    class Meta:
+        verbose_name_plural='Properties'
+
+
+    def save(self, *args, **kwargs):
+       if self.title:
+           self.slug=slugify(self.title)
+       super(Property, self).save(*args, **kwargs) # Call the real save() method
+ 
 
 
     def __str__(self):
@@ -24,13 +36,20 @@ class Property(models.Model):
 class PropertyImages(models.Model):
     property=models.ForeignKey('Property',related_name='property_image',on_delete=models.CASCADE)
     image=models.ImageField(upload_to='property_images/')
-    
+
+    class Meta:
+        verbose_name_plural='PropertyImages'
+
     def __str__(self):
         return str(self.property.title)
 
 
+
 class Category(models.Model):
     name= models.CharField(max_length=50)
+
+    class Meta:
+        verbose_name_plural='Categories'
 
     def __str__(self):
         return str(self.name)
