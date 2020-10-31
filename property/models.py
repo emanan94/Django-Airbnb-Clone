@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.template.defaultfilters import slugify
+from django.urls import reverse
+
 # Create your models here.
 
 class Property(models.Model):
@@ -21,30 +23,34 @@ class Property(models.Model):
     class Meta:
         verbose_name_plural='Properties'
 
-
     def save(self, *args, **kwargs):
        if self.title:
            self.slug=slugify(self.title)
        super(Property, self).save(*args, **kwargs) # Call the real save() method
  
-
-
+ 
     def __str__(self):
         return str(self.title)
 
 
+    def get_absolute_url(self):
+                      #namespace:path_name
+        return reverse('property:property_detail',kwargs={'slug':self.slug})
+
+#===========
 class PropertyImages(models.Model):
     property=models.ForeignKey('Property',related_name='property_image',on_delete=models.CASCADE)
     image=models.ImageField(upload_to='property_images/')
 
     class Meta:
         verbose_name_plural='PropertyImages'
+        verbose_name='PropertyImage'
 
     def __str__(self):
         return str(self.property.title)
 
 
-
+#===========
 class Category(models.Model):
     name= models.CharField(max_length=50)
 
@@ -54,7 +60,7 @@ class Category(models.Model):
     def __str__(self):
         return str(self.name)
 
-
+#===========
 class PropertyReview(models.Model):
     property=models.ForeignKey('Property',related_name='property_review',on_delete=models.CASCADE)
     author=models.ForeignKey(User,related_name='review_author', on_delete=models.CASCADE)
