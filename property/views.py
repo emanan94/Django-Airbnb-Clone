@@ -1,6 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render ,redirect
 from .admin import Property, Category, PropertyImages, PropertyReview
 from django.views.generic import ListView, DetailView
+from django.views.generic.edit import FormMixin
+from .forms import PropertyBookForm
+from django.urls import reverse
+
 # Create your views here.
 
 
@@ -9,13 +13,30 @@ class PropertyList(ListView):
 
 
 
-class PropertyDetail(DetailView):
+class PropertyDetail(DetailView, FormMixin):
     model=Property
+    form_class=PropertyBookForm
 
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["property_images"] =PropertyImages.objects.filter(property=self.get_object().id) 
         print( context["property_images"]) #to add empty list then add images to it
+        
+        context["review_count"]=PropertyReview.objects.filter(property=self.get_object()).count()
         return context
+
+    #to save form
+
+    def post(self, request, *args, **kwargs):
+       form=self.get_form()
+       if form.is_valid():
+           myform=form.save(commit=False)
+           myform.property=self.get_object()
+           myform.save()
+
+           #send email message
+
+           return redirect(reverse('property:property_detail',kwargs={'slug':self.get_object().slug}))
+           
     

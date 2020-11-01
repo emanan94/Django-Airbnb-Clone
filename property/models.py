@@ -3,13 +3,14 @@ from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.template.defaultfilters import slugify
 from django.urls import reverse
+from django.utils import timezone
 
 # Create your models here.
 
 class Property(models.Model):
     owner=models.ForeignKey(User,related_name='property_owner',on_delete=models.CASCADE)
     title=models.CharField(max_length=50)
-    description=models.CharField(max_length=200)
+    description=models.TextField(max_length=10000)
     price=models.IntegerField()
     place=models.CharField(max_length=50)
     image=models.ImageField(upload_to='property/')
@@ -70,3 +71,24 @@ class PropertyReview(models.Model):
 
     def __str__(self):
         return str(self.property.title)
+
+#===========
+class PropertyBook(models.Model):
+    visitors_type=(
+        (1,1),
+        (2,2),
+        (3,3),
+        (4,4),
+    )
+    property=models.ForeignKey(Property,related_name='property_book',on_delete=models.CASCADE)
+    name=models.CharField(max_length=50)
+    email=models.EmailField()
+    date_from=models.DateTimeField(default=timezone.now)
+    date_to=models.DateTimeField(default=timezone.now)
+    guest=models.IntegerField(default=1,choices=visitors_type)
+    children=models.IntegerField(default=0,choices=visitors_type)
+
+
+    def __str__(self):
+        return str(self.property.title)
+
