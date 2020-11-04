@@ -4,6 +4,8 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormMixin
 from .forms import PropertyBookForm
 from django.urls import reverse
+from django.contrib import messages
+
 
 # Create your views here.
 
@@ -34,6 +36,7 @@ class PropertyDetail(DetailView, FormMixin):
            myform=form.save(commit=False)
            myform.property=self.get_object()
            myform.save()
+           messages.success(request, 'Your reservation confirmed.')
 
            #send email message
 
