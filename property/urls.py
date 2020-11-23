@@ -7,5 +7,6 @@ app_name='property'
 
 urlpatterns=[
     path('', views.PropertyList.as_view(), name='property_list' ), # views. cause line 2
-    path('<slug:slug>', views.PropertyDetail.as_view(), name='property_detail')
+    path('new/', views.NewProperty.as_view(), name='new_property' ), 
+    path('<slug:slug>', views.PropertyDetail.as_view(), name='property_detail'),
 ]

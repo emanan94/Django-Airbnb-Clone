@@ -19,11 +19,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('property/',include('property.urls', namespace='property')),
-    path('summernote/', include('django_summernote.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/' , include('accounts.urls', namespace='accounts')),
+    path('admin/', admin.site.urls),
+    path('property/',include('property.urls', namespace='property')),
+    path('blogg/' , include('blogg.urls', namespace='blogg')),
+    path('summernote/', include('django_summernote.urls')),
+    path('about/', include('settings.urls',namespace='about')),
 
 ]
 
