@@ -4,21 +4,26 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from taggit.managers import TaggableManager
 from django.utils.text import slugify
+from django.utils.translation import gettext as _
 
 
 # Create your models here.
 
 class Post(models.Model):
-    author = models.ForeignKey(User,related_name='post_author' , on_delete=models.CASCADE)
-    title = models.CharField(max_length=50)
-    description = models.TextField(max_length=10000)
+    author = models.ForeignKey(User,related_name='post_author' , on_delete=models.CASCADE ,verbose_name=_('author'))
+    title = models.CharField(max_length=50, verbose_name=_('title'))
+    description = models.TextField(_('description'),max_length=10000)
     created_at = models.DateTimeField(default=timezone.now)
-    image = models.ImageField(upload_to='blog/')
-    category = models.ForeignKey('Category', related_name='post_category', on_delete=models.CASCADE)
-    tags = TaggableManager(blank=True)
+    image = models.ImageField(_('image'),upload_to='blog/')
+    category = models.ForeignKey('Category', related_name='post_category', on_delete=models.CASCADE,verbose_name=_('category'))
+    tags = TaggableManager(_('tags'),blank=True)
     slug=models.SlugField(blank=True,null=True)
 
-        
+
+    class Meta:
+        verbose_name = _('Post')
+        verbose_name_plural = _('Posts')
+ 
 
     def save(self, *args, **kwargs):
        if not self.slug:
@@ -38,7 +43,8 @@ class Category(models.Model):
     name = models.CharField(max_length=25)
     
     class Meta:
-        verbose_name_plural = ('Categories')
+        verbose_name = _('Category')
+        verbose_name_plural = _('Categories')
 
     def __str__(self):
         return self.name
