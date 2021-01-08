@@ -6,6 +6,7 @@ class About(models.Model):
     our_mission=models.TextField(max_length=1000)
     Our_goal=models.TextField(max_length=1000)
     image=models.ImageField(upload_to='about/')
+    choose_us=models.TextField(max_length=1000)
 
     class Meta:
         verbose_name_plural ='about'

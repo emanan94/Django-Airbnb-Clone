@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .admin import Post,Category
 from django.views.generic import ListView,DetailView
 from taggit.models import Tag
-from django.db.models import Count
+from django.db.models import Count, Q
 
 
 # Create your views here.
@@ -10,6 +10,18 @@ from django.db.models import Count
 class PostList(ListView):
     model=Post
     paginate_by=8
+
+
+    def get_queryset(self):
+        name=self.request.GET.get('q','') #name=self.request.GET['q',' ']
+       
+        object_list=Post.objects.filter(
+            Q(title__icontains=name)|
+            Q(description__icontains=name)
+        )
+        return object_list
+        
+
 
 class PostDetail(DetailView):
     model=Post

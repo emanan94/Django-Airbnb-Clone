@@ -54,6 +54,7 @@ class PropertyImages(models.Model):
 #===========
 class Category(models.Model):
     name= models.CharField(max_length=50)
+    icon= models.CharField(max_length=25 , blank=True, null=True)
 
     class Meta:
         verbose_name_plural='Categories'
@@ -81,8 +82,7 @@ class PropertyBook(models.Model):
         (4,4),
     )
     property=models.ForeignKey(Property,related_name='property_book',on_delete=models.CASCADE)
-    name=models.CharField(max_length=50)
-    email=models.EmailField()
+    user_name=models.ForeignKey(User,related_name='user_book',on_delete=models.CASCADE)
     date_from=models.DateTimeField(default=timezone.now)
     date_to=models.DateTimeField(default=timezone.now)
     guest=models.IntegerField(default=1,choices=visitors_type)
