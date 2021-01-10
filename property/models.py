@@ -12,7 +12,7 @@ class Property(models.Model):
     title=models.CharField(max_length=50)
     description=models.TextField(max_length=50 ,blank=True , null=True)
     price=models.IntegerField()
-    place=models.CharField(max_length=50)
+    place=models.ForeignKey('Place',related_name='property_place',on_delete=models.CASCADE)
     image=models.ImageField(upload_to='property/')
     category=models.ForeignKey('Category',related_name='property_category',on_delete=models.CASCADE)
     
@@ -66,8 +66,8 @@ class Category(models.Model):
 class PropertyReview(models.Model):
     property=models.ForeignKey('Property',related_name='property_review',on_delete=models.CASCADE)
     author=models.ForeignKey(User,related_name='review_author', on_delete=models.CASCADE)
-    ratting= models.PositiveIntegerField(default=0, validators=[MaxValueValidator(5)])
-    feedback= models.CharField(default='', max_length=200)
+    rating= models.PositiveIntegerField(default=0, validators=[MaxValueValidator(5)])
+    feedback= models.TextField(default='', max_length=200)
 
 
     def __str__(self):
@@ -92,3 +92,12 @@ class PropertyBook(models.Model):
     def __str__(self):
         return str(self.property.title)
 
+
+class Place(models.Model):
+    place_name= models.CharField(max_length=50)
+    image=models.ImageField(upload_to='places/')
+
+
+    def __str__(self):
+        return self.place_name
+    

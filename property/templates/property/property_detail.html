@@ -155,98 +155,81 @@
           				</div>
           			</div>
           		</div>
-          		<div class="col-md-12 hotel-single ftco-animate mb-5 mt-5">
-          			<h4 class="mb-4">Related Hotels</h4>
-          			<div class="row">
-          				<div class="col-md-4">
-				    				<div class="destination">
-				    					<a href="hotel-single.html" class="img img-2" style="background-image: url(images/hotel-1.jpg);"></a>
-				    					<div class="text p-3">
-				    						<div class="d-flex">
-				    							<div class="one">
-						    						<h3><a href="hotel-single.html">Hotel, Italy</a></h3>
-						    						<p class="rate">
-						    							<i class="icon-star"></i>
-						    							<i class="icon-star"></i>
-						    							<i class="icon-star"></i>
-						    							<i class="icon-star"></i>
-						    							<i class="icon-star-o"></i>
-						    							<span>8 Rating</span>
-						    						</p>
-					    						</div>
-					    						<div class="two">
-					    							<span class="price per-price">$40<br><small>/night</small></span>
-				    							</div>
-				    						</div>
-				    						<p>Far far away, behind the word mountains, far from the countries</p>
-				    						<hr>
-				    						<p class="bottom-area d-flex">
-				    							<span><i class="icon-map-o"></i> Miami, Fl</span> 
-				    							<span class="ml-auto"><a href="#">Book Now</a></span>
-				    						</p>
-				    					</div>
-				    				</div>
-				    			</div>
-				    			<div class="col-md-4">
-				    				<div class="destination">
-				    					<a href="hotel-single.html" class="img img-2" style="background-image: url(images/hotel-2.jpg);"></a>
-				    					<div class="text p-3">
-				    						<div class="d-flex">
-				    							<div class="one">
-						    						<h3><a href="hotel-single.html">Hotel, Italy</a></h3>
-						    						<p class="rate">
-						    							<i class="icon-star"></i>
-						    							<i class="icon-star"></i>
-						    							<i class="icon-star"></i>
-						    							<i class="icon-star"></i>
-						    							<i class="icon-star-o"></i>
-						    							<span>8 Rating</span>
-						    						</p>
-					    						</div>
-					    						<div class="two">
-					    							<span class="price per-price">$40<br><small>/night</small></span>
-				    							</div>
-				    						</div>
-				    						<p>Far far away, behind the word mountains, far from the countries</p>
-				    						<hr>
-				    						<p class="bottom-area d-flex">
-				    							<span><i class="icon-map-o"></i> Miami, Fl</span> 
-				    							<span class="ml-auto"><a href="#">Book Now</a></span>
-				    						</p>
-				    					</div>
-				    				</div>
-				    			</div>
-				    			<div class="col-md-4">
-				    				<div class="destination">
-				    					<a href="hotel-single.html" class="img img-2" style="background-image: url(images/hotel-3.jpg);"></a>
-				    					<div class="text p-3">
-				    						<div class="d-flex">
-				    							<div class="one">
-						    						<h3><a href="hotel-single.html">Hotel, Italy</a></h3>
-						    						<p class="rate">
-						    							<i class="icon-star"></i>
-						    							<i class="icon-star"></i>
-						    							<i class="icon-star"></i>
-						    							<i class="icon-star"></i>
-						    							<i class="icon-star-o"></i>
-						    							<span>8 Rating</span>
-						    						</p>
-					    						</div>
-					    						<div class="two">
-					    							<span class="price per-price">$40<br><small>/night</small></span>
-				    							</div>
-				    						</div>
-				    						<p>Far far away, behind the word mountains, far from the countries</p>
-				    						<hr>
-				    						<p class="bottom-area d-flex">
-				    							<span><i class="icon-map-o"></i> Miami, Fl</span> 
-				    							<span class="ml-auto"><a href="#">Book Now</a></span>
-				    						</p>
-				    					</div>
-				    				</div>
-				    			</div>
-          			</div>
-          		</div>
+
+
+				  <div class="col-md-12 hotel-single ftco-animate mb-5 mt-5">
+					<h4 class="mb-4">Related Hotels</h4>
+					<div class="row">
+
+						{% for single_property in get_related %}
+						<div class="col-md-4">
+							<div class="destination">
+								<a href="{{single_property.get_absolute_url}}" class="img img-2"
+									style="background-image: url(images/hotel-1.jpg);"></a>
+								<div class="text p-3">
+									<div class="d-flex">
+										<div class="one">
+											<h3><a href="{{single_property.get_absolute_url}}">{{single_property}}</a></h3>
+											<p class="rate">
+												<i class="icon-star"></i>
+												<i class="icon-star"></i>
+												<i class="icon-star"></i>
+												<i class="icon-star"></i>
+												<i class="icon-star-o"></i>
+												<span>8 Rating</span>
+											</p>
+										</div>
+										<div class="two">
+											<span class="price per-price">${{single_property.price}}<br><small>/night</small></span>
+										</div>
+									</div>
+									<p>{{single_property.description}}</p>
+									<hr>
+									<p class="bottom-area d-flex">
+										<span><i class="icon-map-o"></i> {{single_property.place}}</span>
+										<span class="ml-auto"><a href="{{single_property.get_absolute_url}}">Book Now</a></span>
+									</p>
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+				<!-- Show Ratings  -->
+
+				<!-- Show Ratings  -->
+				<div class="col-md-12 hotel-single ftco-animate mb-5 mt-5">
+					<h4 class="mb-4">Reviews</h4>
+					<div class="row">
+
+						{% for review in property.property_review.all %}
+						<div class="col-md-4">
+							<div class="destination">
+								<div class="text p-3">
+									<div class="d-flex">
+										<div class="one">
+											<h3><a href="">{{review.author}}</a></h3>
+											<p class="rate">
+											{% with ''|center:review.rating as range %}
+											{% for _ in range %}
+											<i class="icon-star"></i>
+											{% endfor %}
+											{% endwith %}
+												<span>8 Rating</span>
+											</p>
+										</div>
+
+									</div>
+									<p>{{review.feedback}}</p>
+									<hr>
+
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+
 
           	</div>
           </div> <!-- .col-md-8 -->

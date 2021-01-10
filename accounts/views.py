@@ -4,7 +4,9 @@ from .forms import UserForm , ProfileForm , UserCreateForm
 from django.urls import reverse
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
-from property.models import PropertyBook
+from property.models import PropertyBook,Property
+from property.forms import PropertyReviewForm
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
 
@@ -62,3 +64,20 @@ def profile_edit(request):
 def my_reservation(request):
     user_reservation = PropertyBook.objects.filter(user_name=request.user)
     return render(request,'profile/my_reservation.html' , {'user_reservation':user_reservation})
+
+
+
+def add_feedback(request,slug):
+    property=get_object_or_404(Property,slug=slug)
+    if request.method == 'POST':
+        form=PropertyReviewForm(request.POST)
+        if form.is_valid():
+            myform=form.save(commit=False)
+            myform.property=property
+            myform.author=request.user
+            myform.save()
+
+    else:
+        form=PropertyReviewForm()
+
+    return render(request,'profile/property_feedback.html',{'form':form, 'property':property})

@@ -30,9 +30,9 @@ class PropertyDetail(DetailView, FormMixin):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["property_images"] =PropertyImages.objects.filter(property=self.get_object().id) 
-        print( context["property_images"]) #to add empty list then add images to it
-        
+        context['get_related'] = Property.objects.filter(category=self.get_object().category)[:2]                
         context["review_count"]=PropertyReview.objects.filter(property=self.get_object()).count()
+      
         return context
 
     #to save form

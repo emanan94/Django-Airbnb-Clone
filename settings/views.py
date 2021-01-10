@@ -4,7 +4,8 @@ from django.views.generic import ListView
 from property import models as property_models
 from blogg import models as blog_models
 from django.contrib.auth.models import User
-from django.db.models import Q
+from django.db.models import Q, Count
+
 
 
 
@@ -22,6 +23,7 @@ def home(request):
     villa_count=property_models.Property.objects.filter(category__name='Villa').count()
     suite_count=property_models.Property.objects.filter(category__name='suite').count()
 
+    places=property_models.Place.objects.all().annotate(property_count=Count('property_place'))
 
     about=About.objects.last()
     
@@ -34,7 +36,8 @@ def home(request):
     'pupular_suite':pupular_suite,
     'apartments_count':apartments_count,
     'villa_count':villa_count,
-    'suite_count': suite_count
+    'suite_count': suite_count,
+    'places':places
     })
 
 
@@ -59,3 +62,8 @@ class AboutView(ListView):
         context["about"] = About.objects.last() 
         return context
     
+
+def contact(request):
+    info=Info.objects.all()
+
+    return render(request,'settings/contact.html',{'info':info})
