@@ -38,6 +38,37 @@ class Property(models.Model):
                       #namespace:path_name
         return reverse('property:property_detail',kwargs={'slug':self.slug})
 
+
+
+    #Check_Availability
+    def check_availability(self):
+        all_resrvations=self.property_book.all()
+        time=timezone.now()
+
+        for reservation in all_resrvations:
+            if time> reservation.date_to:
+                return 'Available'
+            elif time> reservation.date_from and time < reservation.date_to:
+                return 'Occupied'
+        else:
+            return 'Not Available'
+
+    
+    #Rating Average
+    def get_rating_ave(self):
+        all_reviews=self.property_review.all()
+        all_ratings=0
+        
+        if len(all_reviews) > 0:
+            for review in all_reviews:
+                all_ratings+= review.rating
+
+            return round(all_ratings / len(all_reviews))
+        else:
+            return '-'
+    
+
+
 #===========
 class PropertyImages(models.Model):
     property=models.ForeignKey('Property',related_name='property_image',on_delete=models.CASCADE)
@@ -93,6 +124,14 @@ class PropertyBook(models.Model):
         return str(self.property.title)
 
 
+    #Progress
+    def in_progress(self):
+        now = timezone.now()
+        return now > self.date_from and now < self.date_to
+
+    in_progress.boolean = True
+
+#================
 class Place(models.Model):
     place_name= models.CharField(max_length=50)
     image=models.ImageField(upload_to='places/')

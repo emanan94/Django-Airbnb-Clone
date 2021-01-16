@@ -5,6 +5,9 @@ from property import models as property_models
 from blogg import models as blog_models
 from django.contrib.auth.models import User
 from django.db.models import Q, Count
+from django.core.mail import send_mail
+from django.conf import settings
+
 
 
 
@@ -64,6 +67,20 @@ class AboutView(ListView):
     
 
 def contact(request):
-    info=Info.objects.all()
+    info = Info.objects.last()
+
+    if request.method == 'POST':
+        subject = request.POST['subject']
+        name = request.POST['name']
+        email = request.POST['email']
+        message = request.POST['message']
+
+        send_mail(
+            subject,
+            f'message from {name} \n email : {email} \n Message : {message}',
+            email,
+            [settings.EMAIL_HOST_USER],
+            fail_silently=False,
+        )
 
     return render(request,'settings/contact.html',{'info':info})
