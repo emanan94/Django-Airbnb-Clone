@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from taggit.managers import TaggableManager
 from django.utils.text import slugify
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 
 
 # Create your models here.
@@ -41,7 +41,15 @@ class Post(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=25)
-    
+    slug = models.SlugField(_('slug') ,blank=True, null=True)
+
+
+    def save(self, *args, **kwargs):
+       if not self.slug:
+           self.slug = slugify(self.name)    
+       super(Category, self).save(*args, **kwargs) # Call the real save() method
+
+
     class Meta:
         verbose_name = _('Category')
         verbose_name_plural = _('Categories')

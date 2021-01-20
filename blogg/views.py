@@ -33,3 +33,23 @@ class PostDetail(DetailView):
         context['categories'] = Category.objects.all().annotate(post_count=Count('post_category'))
         context['recent_posts']=Post.objects.all()[:3]
         return context
+
+
+
+#Excute category
+class PostByCategory(ListView):
+    model= Post
+    def get_queryset(self):
+        object_list=Post.objects.filter(
+            Q(category__name__icontains=self.kwargs['slug'])
+     )
+        return object_list
+
+#Excute Tags 
+class PostByTag(ListView):
+    model= Post
+    def get_queryset(self):
+        object_list=Post.objects.filter(
+            Q(tags__name__icontains=self.kwargs['slug'])
+     )
+        return object_list

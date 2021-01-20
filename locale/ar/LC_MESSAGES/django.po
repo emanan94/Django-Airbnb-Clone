@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-07 18:30+0200\n"
+"POT-Creation-Date: 2021-01-18 22:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,10 +51,54 @@ msgstr "منشور"
 msgid "Posts"
 msgstr "منشورات"
 
-#: .\blogg\models.py:46
+#: .\blogg\models.py:44
+msgid "slug"
+msgstr ""
+
+#: .\blogg\models.py:54
 msgid "Category"
 msgstr "الفئة"
 
-#: .\blogg\models.py:47
+#: .\blogg\models.py:55
 msgid "Categories"
 msgstr "الفئات"
+
+#: .\templates\base.html:50
+msgid "Home"
+msgstr "الرئيسية"
+
+#: .\templates\base.html:51
+msgid "About"
+msgstr "عن الموقع"
+
+#: .\templates\base.html:52
+msgid "Properties"
+msgstr "الوجدات"
+
+#: .\templates\base.html:53
+msgid "Blog"
+msgstr "المدونة"
+
+#: .\templates\base.html:54
+msgid "Contact"
+msgstr "تواصل معنا"
+
+#: .\templates\base.html:57
+msgid "Profile"
+msgstr "الملف الشخصي"
+
+#: .\templates\base.html:58
+msgid "Add listing"
+msgstr "اضف وحدة"
+
+#: .\templates\base.html:59
+msgid "Logout"
+msgstr "تسجبل خروج"
+
+#: .\templates\base.html:61
+msgid "Signup"
+msgstr "حساب جديد"
+
+#: .\templates\base.html:62
+msgid "login"
+msgstr "تسجبل الدخول"

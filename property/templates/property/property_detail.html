@@ -45,7 +45,17 @@
     							{{review_count}} Rating</span>
     						</p>
     						<p>{{property.description|safe}}</p>
-          		</div>
+				  </div>
+				  
+
+				{% if property.check_availability == 'Available'  %}
+					<h4> Available </h4>
+				{% else %}
+					<h4> Not Available to{{property.check_avablity}}</h4>
+				
+				{% endif %}				
+
+
           		<div class="col-md-12 hotel-single ftco-animate mb-5 mt-4">
           			<h4 class="mb-5">Check Availability &amp; Booking</h4>
 					{% comment '' %}

@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django_filters',
     'rest_framework',
     'rest_framework.authtoken',
+    'tof',
 ]
 
 REST_FRAMEWORK = {
@@ -60,6 +61,7 @@ REST_FRAMEWORK = {
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -122,7 +124,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'ar'
 
 TIME_ZONE = 'UTC'
 
@@ -133,12 +135,20 @@ USE_L10N = True
 USE_TZ = True
 LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
 
+LANGUAGES=(
+    ('en','English'),
+    ('ar','Arabic')
+)
+
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+
+
 STATIC_URL = '/static/'
+
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
@@ -158,6 +168,6 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'eman94an@gmail.com'
-EMAIL_HOST_PASSWORD = 'jkkfbrakgeojdjvf'
+EMAIL_HOST_PASSWORD = 'dmmnifwhevyqqjwk'
 EMAIL_USE_TLS = True
 EMAIL_PORT = '587'

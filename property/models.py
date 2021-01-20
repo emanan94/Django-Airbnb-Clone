@@ -49,7 +49,8 @@ class Property(models.Model):
             if time> reservation.date_to:
                 return 'Available'
             elif time> reservation.date_from and time < reservation.date_to:
-                return 'Occupied'
+                reserved_to=reservation.date_to
+                return f'Not Available to {reserved_to}'
         else:
             return 'Not Available'
 
