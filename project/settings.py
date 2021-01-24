@@ -38,7 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
     'property',
     'bootstrap4',
     'django_summernote',
@@ -50,7 +53,12 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'tof',
+    'dj_rest_auth',
+
 ]
+
+SITE_ID = 1
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -168,6 +176,16 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'eman94an@gmail.com'
-EMAIL_HOST_PASSWORD = 'dmmnifwhevyqqjwk'
+EMAIL_HOST_PASSWORD = 'dzisqesxljsoqgeb'
 EMAIL_USE_TLS = True
 EMAIL_PORT = '587'
+
+
+# CELERY STUFF
+BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = TIME_ZONE

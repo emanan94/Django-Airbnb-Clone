@@ -28,6 +28,8 @@ urlpatterns = [
     path('blogg/' , include('blogg.urls', namespace='blogg')),
     path('summernote/', include('django_summernote.urls')),
     path('', include('settings.urls',namespace='about')),
+    path('auth/', include('dj_rest_auth.urls')),
+    path('auth/registration/', include('dj_rest_auth.registration.urls'))
 
 ]
 
