@@ -18,6 +18,7 @@ class Post(models.Model):
     category = models.ForeignKey('Category', related_name='post_category', on_delete=models.CASCADE,verbose_name=_('category'))
     tags = TaggableManager(_('tags'),blank=True)
     slug=models.SlugField(blank=True,null=True)
+    active=models.BooleanField(default=False)
 
 
     class Meta:

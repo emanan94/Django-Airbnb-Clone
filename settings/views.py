@@ -82,3 +82,22 @@ def contact(request):
 
 
     return render(request,'settings/contact.html',{'info':info})
+
+
+def dashboard(request):
+    users_count=User.objects.all().count()
+    apartments_count=property_models.Property.objects.filter(category__name='Apartment').count()
+    villa_count=property_models.Property.objects.filter(category__name='Villa').count()
+    suite_count=property_models.Property.objects.filter(category__name='suite').count()
+    posts_count=blog_models.Post.objects.all().count()
+    booking_count=property_models.PropertyBook.objects.all().count()
+
+
+    return render(request,'settings/dashboard.html',{
+    'users_count' : users_count , 
+    'apartments_count':apartments_count,
+    'villa_count':villa_count,
+    'suite_count': suite_count,
+    'posts_count' : posts_count , 
+    'booking_count' : booking_count
+    })
