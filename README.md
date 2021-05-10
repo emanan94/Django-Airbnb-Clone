@@ -1,2 +1,2 @@
 # Django-Airbnb-Clone
-Airbnb Clone website
+It's a simple clone of Airbnb Website for booking hotels or apartments online
